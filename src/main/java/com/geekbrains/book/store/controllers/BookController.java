@@ -1,6 +1,7 @@
 package com.geekbrains.book.store.controllers;
 
 import com.geekbrains.book.store.entities.Book;
+import com.geekbrains.book.store.entities.Genre;
 import com.geekbrains.book.store.services.BookService;
 import com.geekbrains.book.store.utils.BookFilter;
 import lombok.AllArgsConstructor;
@@ -27,7 +28,9 @@ public class BookController {
         model.addAttribute("currentPage", pageIndex);
         Page<Book> page = bookService.findAll(bookFilter.getSpec(), pageIndex - 1, 5);
         model.addAttribute("books", page.getContent());
+        model.addAttribute("filterParameters", bookFilter.getFilterParams());
         model.addAttribute("page", page);
+        model.addAttribute("genres", Genre.values());
         return "store-page";
     }
 

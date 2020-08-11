@@ -1,6 +1,7 @@
 package com.geekbrains.book.store.repositories.specifications;
 
 import com.geekbrains.book.store.entities.Book;
+import com.geekbrains.book.store.entities.Genre;
 import org.springframework.data.jpa.domain.Specification;
 
 public class BookSpecifications {
@@ -14,5 +15,9 @@ public class BookSpecifications {
 
     public static Specification<Book> titleLike(String titlePart) {
         return (Specification<Book>) (root, criteriaQuery, criteriaBuilder) -> criteriaBuilder.like(root.get("title"), String.format("%%%s%%", titlePart)); // where b.title like %titlePart%
+    }
+
+    public static Specification<Book> genreLike(String genre) {
+        return (Specification<Book>) (root, criteriaQuery, criteriaBuilder) -> criteriaBuilder.equal(root.get("genre"), Genre.valueOf(genre));
     }
 }
